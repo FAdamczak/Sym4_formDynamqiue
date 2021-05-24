@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TestController!{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+{% set lesVilles = "" %}
+{% for ville in villes %}
+    {% set lesVilles = lesVilles ~ ville.id ~ "***" ~ ville.nom ~ "***"  ~ ville.pays.id ~ "+++" %}
+{% endfor %}
+
+{% set lesMonuments = "" %}
+{% for monument in monuments %}
+    {% set lesMonuments = lesMonuments ~ monument.id ~ "***" ~ monument.nom ~ "***" ~ monument.ville.id ~ "+++" %}
+{% endfor %}
+
+
+<div class="container mt-5">
+    <div class="row">  
+                
+        <div class="col-sm-12" id="lesDatas" data-villes="{{ lesVilles }}" data-monuments="{{ lesMonuments }}">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            ville : 
+            <select id="villes">
+            </select>
+
+            monuments : 
+            <select id="monuments">
+            </select>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+</div>
+
+{% endblock body %}
+
+{% block javascripts %}
+
+
+{{ parent() }}
+
+<script src="testJs.js"></script>
+{% endblock %}
